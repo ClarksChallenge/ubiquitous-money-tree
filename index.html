@@ -3,51 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey-to-Donate Platform</title>
-    <!-- Load jQuery (Required by Pollfish) -->
-    <script src="https://jquery.com"></script>
+    <title>fundup - Survey to Help Your Friends</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: -apple-system, sans-serif; line-height: 1.6; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #333; }
-        h1 { color: #111; }
-        .instructions { background: #f4f4f4; padding: 15px; border-radius: 8px; margin: 20px 0; }
-        footer { margin-top: 50px; font-size: 0.8em; color: #666; border-top: 1px solid #ddd; padding-top: 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container { 
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .content { padding: 40px 30px; }
+        .instructions { 
+            background: #f8f9fa; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin: 25px 0;
+            border-left: 4px solid #667eea;
+        }
+        .instructions h3 { 
+            color: #667eea; 
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .instructions ul { 
+            list-style: none; 
+            padding-left: 0;
+        }
+        .instructions li { 
+            padding: 10px 0;
+            display: flex;
+            gap: 10px;
+        }
+        .instructions li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            min-width: 20px;
+        }
+        #pollfish-container {
+            margin: 30px 0;
+        }
+        footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            font-size: 0.9em;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        footer a { color: #667eea; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>💸 fundup</h1>
+            <p>Help your friends raise money by sharing your opinion</p>
+        </div>
+        
+        <div class="content">
+            <p>Welcome to fundup. Someone you know invited you here to help them raise money for a personal cause.</p>
+            
+            <div class="instructions">
+                <h3><i class="fas fa-lightbulb"></i> How It Works</h3>
+                <ul>
+                    <li><strong>Answer Honestly:</strong> Brands verify genuine responses, so authentic feedback matters.</li>
+                    <li><strong>Complete the Survey:</strong> Finish the full session to ensure your creator friend gets paid.</li>
+                    <li><strong>Get Rewarded:</strong> Your opinion directly funds their cause.</li>
+                </ul>
+            </div>
 
-    <h1>💸 Support Your Friends with Your Opinion, Not Your Cash.</h1>
-    <p>Welcome to the Survey-to-Donate testing platform. Someone you know invited you here to help them raise money for a personal cause.</p>
+            <!-- Pollfish Widget Container -->
+            <div id="pollfish-container"></div>
+        </div>
 
-    <div class="instructions">
-        <h3>📋 How to Ensure They Get Paid:</h3>
-        <ul>
-            <li><strong>Answer Honestly:</strong> Brand verification engines block random clicking.</li>
-            <li><strong>Finish the Survey:</strong> Complete the session until you reach the final confirmation screen.</li>
-        </ul>
+        <footer>
+            <p><strong>Privacy & Transparency:</strong> 80% of revenue goes directly to creators. 20% funds platform development. By continuing, you agree to our terms and privacy policy.</p>
+        </footer>
     </div>
 
-    <!-- Pollfish Widget Container -->
-    <div id="pollfish-container"></div>
-
-    <footer>
-        <p><strong>Transparency & Privacy Notice:</strong> 80% of generated revenue goes to the creator; 20% funds our upcoming mobile app development. By continuing, you agree that your anonymous demographic survey data will be processed by our partner, Pollfish, under the Pollfish Respondent Privacy Policy.</p>
-    </footer>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      // Automatically grab the creator ID from the URL (?id=sarah123)
-      const urlParams = new URLSearchParams(window.location.search);
-      const creatorId = urlParams.get('id') || 'untracked_visitor';
-
-      // Configure Pollfish Web Plugin
-      var pollfishConfig = {
-        api_key: "YOUR_POLLFISH_PUBLISHER_API_KEY_HERE", // <-- Put your real API key here
-        debug: true,                                    // <-- Change to false when Pollfish approves you
-        request_uuid: creatorId,
-        container: "pollfish-container"
-      };
+        const urlParams = new URLSearchParams(window.location.search);
+        const creatorId = urlParams.get('id') || 'untracked_visitor';
+        
+        var pollfishConfig = {
+            api_key: "YOUR_POLLFISH_PUBLISHER_API_KEY_HERE",
+            debug: true,
+            request_uuid: creatorId,
+            container: "pollfish-container"
+        };
     </script>
-    <!-- Load Pollfish Web Platform Asset -->
-    <script src="https://googleapis.com"></script>
-
+    <script src="https://cdn.pollfish.com/survey/survey.min.js"></script>
 </body>
 </html>
