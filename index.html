@@ -32,6 +32,15 @@
             padding: 40px 30px;
             text-align: center;
         }
+        .header-image {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
         .header h1 { font-size: 2em; margin-bottom: 10px; }
         .header p { opacity: 0.9; font-size: 1.1em; }
         .content { padding: 40px 30px; }
@@ -81,7 +90,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💸 fundup</h1>
+            <div class="header-image">🐙💜💰</div>
+            <h1>fundup</h1>
             <p>Help your friends raise money by sharing your opinion</p>
         </div>
         
