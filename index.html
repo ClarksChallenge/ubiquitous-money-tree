@@ -37,6 +37,11 @@
             margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
         }
+        .header-image img {
+            max-width: 250px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -90,7 +95,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-image">🐙💜💰</div>
+            <div class="header-image">
+                <img src="https://github.com/ClarksChallenge/fundup/raw/main/assets/octopus-money.png" alt="fundup octopus mascot with money">
+            </div>
             <h1>fundup</h1>
             <p>Help your friends raise money by sharing your opinion</p>
         </div>
