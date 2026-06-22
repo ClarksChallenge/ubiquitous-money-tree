@@ -9,41 +9,53 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #0f172a;
       color: #e5e7eb;
-      padding: 24px;
+      margin: 0;
+      padding: 0 0 70px; /* space for bottom nav */
     }
+
     .wrap {
       max-width: 960px;
       margin: 0 auto;
+      padding: 20px;
     }
+
     h1 {
       font-size: 1.8rem;
       margin-bottom: 8px;
+      text-align: center;
     }
+
     .subtitle {
       color: #9ca3af;
       font-size: 0.95rem;
       margin-bottom: 20px;
+      text-align: center;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
     }
+
     .card {
       background: #020617;
       border-radius: 14px;
       padding: 14px 14px 12px;
       border: 1px solid #1f2937;
     }
+
     .name {
       font-weight: 600;
       margin-bottom: 4px;
     }
+
     .goal {
       font-size: 0.9rem;
       color: #9ca3af;
       margin-bottom: 10px;
     }
+
     .link {
       display: inline-flex;
       align-items: center;
@@ -52,37 +64,33 @@
       color: #a5b4fc;
       text-decoration: none;
     }
+
     .link:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
+
+  <!-- ⭐ TOP HEADER -->
+  <header style="
+    width:100%;
+    background:#0f172a;
+    border-bottom:1px solid #1e293b;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+  ">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
+           style="width:48px; height:48px; object-fit:contain;" />
+      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">fundup</span>
+    </div>
+  </header>
+
   <div class="wrap">
     <h1>Creators on fundup</h1>
-    <p class="subtitle">Each link opens a private page where surveys fund that creator’s goal. No accounts, no personal data.</p>
-    <div class="grid" id="creator-grid"></div>
-  </div>
-
-  <script>
-    fetch('data/creators.json')
-      .then(r => r.json())
-      .then(creators => {
-        const grid = document.getElementById('creator-grid');
-        grid.innerHTML = creators.map(c => `
-          <div class="card">
-            <div class="name">${c.name}</div>
-            <div class="goal">${c.goal}</div>
-            <a class="link" href="index.html?id=${c.id}">
-              <span>Open supporter page</span>
-              <span>↗</span>
-            </a>
-          </div>
-        `).join('');
-      })
-      .catch(() => {
-        document.getElementById('creator-grid').innerHTML = '<p>Unable to load creators right now.</p>';
-      });
-  </script>
-</body>
-</html>
