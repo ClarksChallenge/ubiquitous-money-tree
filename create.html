@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>8Impact – Creators</title>
+  <title>8Impact – Create a Fundraiser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
@@ -14,28 +14,9 @@
     }
 
     .wrap {
-      max-width: 960px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 20px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-
-    .subtitle {
-      color: #9ca3af;
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
       animation: fadeIn 0.5s ease-out;
     }
 
@@ -44,35 +25,57 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .card {
-      background: #020617;
-      border-radius: 14px;
-      padding: 14px 14px 12px;
-      border: 1px solid #1f2937;
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
     }
 
-    .name {
+    p {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: #4f46e5;
+      color: white;
       font-weight: 600;
-      margin-bottom: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
     }
 
-    .goal {
-      font-size: 0.9rem;
-      color: #9ca3af;
-      margin-bottom: 10px;
+    button:hover {
+      background: #4338ca;
     }
 
-    .link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
+    .output {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #020617;
+      border: 1px solid #1f2937;
+      font-size: 0.95rem;
+      word-break: break-all;
+    }
+
+    code {
       color: #a5b4fc;
-      text-decoration: none;
+      font-size: 0.95rem;
     }
 
-    .link:hover {
-      text-decoration: underline;
+    .copy-btn {
+      margin-top: 10px;
+      background: #10b981;
+    }
+
+    .copy-btn:hover {
+      background: #059669;
     }
   </style>
 </head>
@@ -99,10 +102,36 @@
   </header>
 
   <div class="wrap">
-    <h1>Creators on 8Impact</h1>
-    <p class="subtitle">Each link opens a supporter page where surveys fund that creator’s goal.</p>
+    <h1>Create your 8Impact link</h1>
 
-    <div class="grid" id="creator-grid"></div>
+    <p>
+      This tool generates an anonymous creator ID, a supporter link,  
+      and a private payout passphrase.  
+      No personal information is required.
+    </p>
+
+    <p>
+      Save your passphrase somewhere safe — it is required to claim payouts.
+    </p>
+
+    <button id="generate">Generate my creator ID & link</button>
+
+    <div class="output" id="output" style="display:none;">
+      <p><strong>Your creator ID:</strong><br /><code id="creator-id"></code></p>
+
+      <p><strong>Your supporter link:</strong><br /><code id="creator-link"></code></p>
+
+      <p><strong>Your payout passphrase:</strong><br />
+        <code id="creator-passphrase" style="color:#34d399;"></code>
+      </p>
+
+      <button class="copy-btn" id="copy-btn">Copy Link</button>
+
+      <p style="margin-top:14px; color:#f87171; font-weight:600;">
+        ⚠️ Save your passphrase.  
+        If you lose it, your earnings cannot be claimed.
+      </p>
+    </div>
   </div>
 
   <!-- ⭐ BOTTOM NAV -->
@@ -126,25 +155,44 @@
   </nav>
 
   <script>
-    fetch("data/creators.json")
-      .then(r => r.json())
-      .then(creators => {
-        const grid = document.getElementById("creator-grid");
-        grid.innerHTML = creators.map(c => `
-          <div class="card">
-            <div class="name">${c.name}</div>
-            <div class="goal">${c.goal}</div>
-            <a class="link" href="support.html?id=${c.id}">
-              <span>Open supporter page</span>
-              <span>↗</span>
-            </a>
-          </div>
-        `).join("");
-      })
-      .catch(() => {
-        document.getElementById("creator-grid").innerHTML =
-          "<p>Unable to load creators right now.</p>";
-      });
+    // Base URL for supporter links
+    const baseUrl = window.location.origin + "/ClarksChallenge/support.html";
+
+    // Generate a random creator ID
+    function generateId() {
+      const random = Math.random().toString(36).substring(2, 10).toUpperCase();
+      return "CREATOR_" + random;
+    }
+
+    // Generate a secure passphrase
+    function generatePassphrase() {
+      const words = [
+        "river","orange","lamp","forest","silver","cloud","ember","stone",
+        "tiger","moon","glass","shadow","ocean","flame","wind","harbor"
+      ];
+      const pick = () => words[Math.floor(Math.random() * words.length)];
+      return `${pick()}-${pick()}-${pick()}`;
+    }
+
+    // Generate everything
+    document.getElementById("generate").addEventListener("click", () => {
+      const id = generateId();
+      const passphrase = generatePassphrase();
+      const link = `${baseUrl}?id=${encodeURIComponent(id)}`;
+
+      document.getElementById("creator-id").textContent = id;
+      document.getElementById("creator-link").textContent = link;
+      document.getElementById("creator-passphrase").textContent = passphrase;
+
+      document.getElementById("output").style.display = "block";
+    });
+
+    // Copy link button
+    document.getElementById("copy-btn").addEventListener("click", () => {
+      const link = document.getElementById("creator-link").textContent;
+      navigator.clipboard.writeText(link);
+      alert("Link copied to clipboard!");
+    });
   </script>
 
 </body>
