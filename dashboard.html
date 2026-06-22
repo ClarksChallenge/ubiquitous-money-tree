@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>fundup – Creator dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 24px;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #020617;
+      border-radius: 18px;
+      border: 1px solid #1f2937;
+      padding: 18px 18px 16px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .metric {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 10px;
+    }
+    .metric-label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .metric-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .note {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Creator dashboard</h1>
+    <div class="subtitle" id="creator-label">Loading creator…</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Total earned (approx)</div>
+        <div class="metric-value" id="earned">$–</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Total paid out</div>
+        <div class="metric-value" id="paid">$–</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Balance</div>
+        <div class="metric-value" id="balance">$–</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Surveys completed</div>
+        <div class="metric-value" id="surveys">–</div>
+      </div>
+    </div>
+
+    <p class="note">
+      This dashboard uses anonymous creator IDs only.  
+      No personal data is stored.  
+      Values are placeholders until connected to CPX exports and payout logs.
+    </p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const creatorId = params.get('id') || 'unknown';
+
+    document.getElementById('creator-label').textContent =
+      `Stats for creator ID: ${creatorId}`;
+
+    // Placeholder values — you can wire these to real data later
+    document.getElementById('earned').textContent = '$0.00';
+    document.getElementById('paid').textContent = '$0.00';
+    document.getElementById('balance').textContent = '$0.00';
+    document.getElementById('surveys').textContent = '0';
+  </script>
+</body>
+</html>
