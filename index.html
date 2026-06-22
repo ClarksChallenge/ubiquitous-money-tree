@@ -2,429 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>fundup – Support a Creator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Octocrowd – Turn opinions into support</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    :root {
-      --primary: #667eea;
-      --primary-dark: #4c51bf;
-      --bg: #f5f7ff;
-      --text: #1f2933;
-      --muted: #6b7280;
-      --card-bg: #ffffff;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #a5b4fc 0, #312e81 40%, #111827 100%);
-      min-height: 100vh;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 0 0 70px; /* space for bottom nav */
     }
-    .shell {
-      max-width: 960px;
-      width: 100%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(249,250,251,0.98));
-      border-radius: 24px;
-      box-shadow: 0 24px 80px rgba(15,23,42,0.45);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    @media (max-width: 800px) {
-      .shell { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
-    }
-    .hero {
-      padding: 32px 32px 28px;
-      border-right: 1px solid rgba(148,163,184,0.25);
-    }
-    .hero-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
+
     .logo-badge {
-      width: 90px;
-      height: 90px;
+      width: 110px;
+      height: 110px;
       border-radius: 999px;
       background: radial-gradient(circle at 30% 20%, #fef3c7, #f97316);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 25px rgba(249,115,22,0.4);
+      box-shadow: 0 12px 28px rgba(249,115,22,0.35);
+      margin: 20px auto;
     }
+
     .logo-badge img {
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
     }
-    .brand-title {
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #4b5563;
-    }
+
     h1 {
-      font-size: 2.1rem;
-      line-height: 1.2;
-      margin-bottom: 10px;
-      color: #111827;
-    }
-    .subtitle {
-      color: var(--muted);
-      font-size: 0.98rem;
-      margin-bottom: 18px;
-    }
-    .creator-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #4338ca;
-      font-size: 0.8rem;
-      margin-bottom: 18px;
-    }
-    .creator-pill span.creator-name {
-      font-weight: 600;
-    }
-    .highlight-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 16px 16px 14px;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.08);
-      border: 1px solid rgba(148,163,184,0.35);
-      margin-bottom: 18px;
-    }
-    .highlight-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #111827;
+      text-align: center;
+      font-size: 1.8rem;
       margin-bottom: 6px;
     }
-    .highlight-body {
-      font-size: 0.9rem;
-      color: #4b5563;
+
+    .subtitle {
+      text-align: center;
+      color: #94a3b8;
+      margin-bottom: 20px;
     }
-    .steps {
-      margin: 18px 0 16px;
-      padding: 14px 14px 10px;
-      border-radius: var(--radius-md);
-      background: #f9fafb;
-      border: 1px dashed rgba(148,163,184,0.7);
-    }
-    .steps-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #4b5563;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .steps-list {
-      list-style: none;
-      font-size: 0.86rem;
-      color: #4b5563;
-    }
-    .steps-list li {
-      display: flex;
-      gap: 8px;
-      padding: 4px 0;
-    }
-    .steps-list li i {
-      color: #22c55e;
-      margin-top: 2px;
-    }
-    .cta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .cta-main {
-      flex: 1;
-      padding: 11px 16px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 14px 30px rgba(79,70,229,0.45);
-      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
-    }
-    .cta-main:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-      box-shadow: 0 18px 40px rgba(79,70,229,0.55);
-    }
-    .cta-main:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 24px rgba(79,70,229,0.4);
-    }
-    .cta-note {
-      font-size: 0.78rem;
-      color: #6b7280;
-    }
-    .trust-row {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.78rem;
-      color: #6b7280;
-    }
-    .trust-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 6px rgba(34,197,94,0.18);
-    }
-    .hero-visual {
-      padding: 26px 26px 22px;
-      background: radial-gradient(circle at top left, #eef2ff 0, #e0f2fe 40%, #f9fafb 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .visual-card {
-      background: rgba(255,255,255,0.9);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      box-shadow: 0 16px 40px rgba(15,23,42,0.12);
-      border: 1px solid rgba(148,163,184,0.4);
-      margin-bottom: 14px;
-    }
-    .visual-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 0.85rem;
-      color: #4b5563;
-    }
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #4338ca;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    .progress-row {
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
-    .progress-bar {
-      margin-top: 6px;
+
+    iframe {
       width: 100%;
-      height: 8px;
-      border-radius: 999px;
-      background: #e5e7eb;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      width: 42%;
-      background: linear-gradient(90deg, #22c55e, #4ade80);
-    }
-    .mini-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .metric {
-      background: #f9fafb;
-      border-radius: 10px;
-      padding: 8px;
-      text-align: left;
-      border: 1px solid rgba(209,213,219,0.8);
-    }
-    .metric-label {
-      font-size: 0.7rem;
-      color: #6b7280;
-      margin-bottom: 2px;
-    }
-    .metric-value {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #111827;
-    }
-    .footer {
-      font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 10px;
-    }
-    .footer a {
-      color: #4f46e5;
-      text-decoration: none;
-    }
-    .footer a:hover {
-      text-decoration: underline;
-    }
-    #cpx-container {
-      margin-top: 12px;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-    }
-    #cpx-container iframe {
+      height: 600px;
       border: none;
-      width: 100%;
-      height: 520px;
+      border-radius: 12px;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <section class="hero">
-      <div class="hero-header">
-        <div class="logo-badge">
-          <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus-money.png" alt="OCTOCROWD logo" />
-        </div>
-        <div>
-          <div class="brand-title">fundup</div>
-          <div style="font-size:0.8rem; color:#6b7280;">Turn opinions into support</div>
-        </div>
-      </div>
 
-      <h1>Help a friend raise money just by answering questions.</h1>
-      <p class="subtitle">
-        No sign‑ups. No personal data. Just a few minutes of your time, and real money goes toward their goal.
-      </p>
+  <!-- ⭐ TOP HEADER -->
+  <header style="
+    width:100%;
+    background:#0f172a;
+    border-bottom:1px solid #1e293b;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+  ">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
+           style="width:48px; height:48px; object-fit:contain;" />
+      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">fundup</span>
+    </div>
+  </header>
 
-      <div class="creator-pill" id="creator-pill">
-        <i class="fa-solid fa-user-heart"></i>
-        <span>Supporting</span>
-        <span class="creator-name" id="creator-name">a creator</span>
-      </div>
+  <div class="wrap">
+    <div class="logo-badge">
+      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png" />
+    </div>
 
-      <div class="highlight-card">
-        <div class="highlight-title">How this works</div>
-        <div class="highlight-body">
-          Brands pay to hear honest opinions. Instead of keeping it, we route that money to the creator who invited you here.
-        </div>
-      </div>
+    <h1>Support a Creator</h1>
+    <p class="subtitle">Complete surveys to help fund their goal — no signup required.</p>
 
-      <div class="steps">
-        <div class="steps-title">
-          <i class="fa-solid fa-bolt"></i>
-          <span>3 simple steps</span>
-        </div>
-        <ul class="steps-list">
-          <li><i class="fa-solid fa-check-circle"></i><span>Answer survey questions honestly — no personal info required.</span></li>
-          <li><i class="fa-solid fa-check-circle"></i><span>Complete as many surveys as you like in this session.</span></li>
-          <li><i class="fa-solid fa-check-circle"></i><span>Each completed survey adds real money to your friend’s fundraiser.</span></li>
-        </ul>
-      </div>
-
-      <div class="cta-row">
-        <button class="cta-main" id="start-btn">
-          <span>Start supporting with a survey</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-        <div class="cta-note">
-          No account. No payment. Just your time.
-        </div>
-      </div>
-
-      <div class="trust-row">
-        <div class="trust-dot"></div>
-        <div>We don’t collect names, emails, or payment details — ever.</div>
-      </div>
-
-      <div class="footer">
-        <span>Read our <a href="privacy.html" target="_blank">privacy policy</a>. Creators can view stats on their <a href="dashboard.html">dashboard</a>.</span>
-      </div>
-
-      <div id="cpx-container"></div>
-    </section>
-
-    <aside class="hero-visual">
-      <div class="visual-card">
-        <div class="visual-header">
-          <span>Live fundraiser preview</span>
-          <span class="pill">Anonymous &amp; secure</span>
-        </div>
-        <div class="progress-row">
-          <span id="goal-label">Goal: Support a creator’s next step</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-        </div>
-        <div class="mini-metrics">
-          <div class="metric">
-            <div class="metric-label">Surveys completed</div>
-            <div class="metric-value" id="metric-surveys">–</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Raised so far</div>
-            <div class="metric-value" id="metric-raised">$–</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Supporters</div>
-            <div class="metric-value" id="metric-supporters">–</div>
-          </div>
-        </div>
-      </div>
-      <div class="visual-card">
-        <div class="visual-header">
-          <span>Why surveys?</span>
-          <span class="pill" style="background:#ecfdf5; color:#15803d;">No personal data</span>
-        </div>
-        <p style="font-size:0.86rem; color:#4b5563;">
-          Surveys let brands learn from real people without tracking who you are. We only pass an anonymous creator ID so funds reach the right person.
-        </p>
-      </div>
-    </aside>
+    <!-- CPX iframe -->
+    <iframe
+      src="https://offers.cpx-research.com/index.php?app_id=YOUR_APP_ID&ext_user_id=CREATOR_ID"
+      id="survey-frame">
+    </iframe>
   </div>
 
+  <!-- ⭐ BOTTOM NAV -->
+  <nav style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#0f172a;
+    border-top:1px solid #1e293b;
+    display:flex;
+    justify-content:space-around;
+    padding:10px 0;
+    z-index:1000;
+  ">
+    <a href="index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Home</a>
+    <a href="creators.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Creators</a>
+    <a href="create.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Create</a>
+    <a href="dashboard.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Dashboard</a>
+    <a href="payouts.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Payouts</a>
+  </nav>
+
   <script>
+    // Pull creator ID from URL
     const params = new URLSearchParams(window.location.search);
-    const creatorId = params.get('id') || 'untracked';
+    const creatorId = params.get("id") || "UNKNOWN";
 
-    const creatorMap = {
-      'CREATOR_ABC': { name: 'Alex', goal: 'New camera for content' },
-      'CREATOR_DEF': { name: 'Jordan', goal: 'College tuition support' }
-    };
-
-    const creatorData = creatorMap[creatorId] || null;
-    const creatorNameEl = document.getElementById('creator-name');
-    const goalLabelEl = document.getElementById('goal-label');
-
-    if (creatorData) {
-      creatorNameEl.textContent = creatorData.name;
-      goalLabelEl.textContent = `Goal: ${creatorData.goal}`;
-    } else if (creatorId !== 'untracked') {
-      creatorNameEl.textContent = `creator ${creatorId}`;
-      goalLabelEl.textContent = `Goal: Help this creator reach their next milestone`;
-    }
-
-    document.getElementById('metric-surveys').textContent = '—';
-    document.getElementById('metric-raised').textContent = '$—';
-    document.getElementById('metric-supporters').textContent = '—';
-
-    const cpxUrl = `https://offers.cpx-research.com/index.php?app_id=YOUR_APP_ID&ext_user_id=${encodeURIComponent(creatorId)}`;
-
-    function loadCPX() {
-      const container = document.getElementById('cpx-container');
-      if (!container.innerHTML.trim()) {
-        container
+    // Replace CPX iframe ID
+    const iframe = document
