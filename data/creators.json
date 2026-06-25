@@ -2,13 +2,11 @@
   {
     "id": "CREATOR_ABC",
     "name": "Alex",
-    "goal": "New camera for content",
-    "link": "index.html?id=CREATOR_ABC"
+    "goal": "New camera for content"
   },
   {
     "id": "CREATOR_DEF",
     "name": "Jordan",
-    "goal": "College tuition support",
-    "link": "index.html?id=CREATOR_DEF"
+    "goal": "College tuition support"
   }
 ]
