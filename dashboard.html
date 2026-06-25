@@ -18,26 +18,22 @@
 <div class="stat">Surveys Completed: <span id="surveys">0</span></div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const creatorId = (params.get("id") || "").trim();
+const params = new URLSearchParams(window.location.search);
+const creatorId = (params.get("id") || "").trim();
 
-  document.getElementById("creator-label").textContent =
-    creatorId ? `Stats for creator ID: ${creatorId}` : "No creator ID provided.";
+document.getElementById("creator-label").textContent =
+  creatorId ? `Stats for creator ID: ${creatorId}` : "No creator ID provided.";
 
-  if (creatorId) {
-    fetch(`https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=creatorStats&id=${encodeURIComponent(creatorId)}`)
-      .then(r => r.json())
-      .then(data => {
-        document.getElementById("earned").textContent = `$${data.earned.toFixed(2)}`;
-        document.getElementById("paid").textContent = `$${data.paid.toFixed(2)}`;
-        document.getElementById("balance").textContent = `$${data.balance.toFixed(2)}`;
-        document.getElementById("surveys").textContent = data.surveys;
-      })
-      .catch(() => {
-        document.getElementById("creator-label").textContent =
-          "Unable to load creator stats.";
-      });
-  }
+if (creatorId) {
+  fetch(`https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=creatorStats&id=${encodeURIComponent(creatorId)}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("earned").textContent = `$${data.earned.toFixed(2)}`;
+      document.getElementById("paid").textContent = `$${data.paid.toFixed(2)}`;
+      document.getElementById("balance").textContent = `$${data.balance.toFixed(2)}`;
+      document.getElementById("surveys").textContent = data.surveys;
+    });
+}
 </script>
 
 </body>
