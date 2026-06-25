@@ -114,6 +114,12 @@
       Save your passphrase somewhere safe — it is required to claim payouts.
     </p>
 
+    <!-- ⭐ CPX-SAFE NOTICE -->
+    <p style="color:#94a3b8; font-size:0.75rem;">
+      Surveys are provided by CPX Research.  
+      8Impact is an independent publisher and not affiliated with CPX Research.
+    </p>
+
     <button id="generate">Generate my creator ID & link</button>
 
     <div class="output" id="output" style="display:none;">
@@ -155,16 +161,13 @@
   </nav>
 
   <script>
-    // Base URL for supporter links
     const baseUrl = window.location.origin + "/ClarksChallenge/support.html";
 
-    // Generate a random creator ID
     function generateId() {
       const random = Math.random().toString(36).substring(2, 10).toUpperCase();
       return "CREATOR_" + random;
     }
 
-    // Generate a secure passphrase
     function generatePassphrase() {
       const words = [
         "river","orange","lamp","forest","silver","cloud","ember","stone",
@@ -174,7 +177,6 @@
       return `${pick()}-${pick()}-${pick()}`;
     }
 
-    // Generate everything
     document.getElementById("generate").addEventListener("click", () => {
       const id = generateId();
       const passphrase = generatePassphrase();
@@ -187,7 +189,6 @@
       document.getElementById("output").style.display = "block";
     });
 
-    // Copy link button
     document.getElementById("copy-btn").addEventListener("click", () => {
       const link = document.getElementById("creator-link").textContent;
       navigator.clipboard.writeText(link);
