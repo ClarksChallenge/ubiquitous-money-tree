@@ -3,28 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Support a Creator</title>
-  <style>
-    body { font-family: Arial; padding: 20px; }
-  </style>
 </head>
 <body>
 
 <h2>Support a Creator</h2>
-
-<p>When a survey completes, earnings will be recorded automatically.</p>
+<p>Earnings will be recorded automatically when surveys complete.</p>
 
 <script>
 function recordEarning(creatorId, amount) {
   fetch("https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=recordEarning", {
     method: "POST",
-    body: new URLSearchParams({
-      creatorId: creatorId,
-      amount: amount
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    console.log("Earning recorded:", data);
+    body: new URLSearchParams({ creatorId, amount })
   });
 }
 </script>
