@@ -139,10 +139,26 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const creatorId = params.get("id") || "UNKNOWN";
+    const creatorId = (params.get("id") || "").trim();
 
     document.getElementById("creator-label").textContent =
-      `Stats for creator ID: ${creatorId}`;
+      creatorId ? `Stats for creator ID: ${creatorId}` : "No creator ID provided.";
+
+    // ⭐ Load stats from backend
+    if (creatorId) {
+      fetch(`https://YOUR_SCRIPT_URL/creatorStats?id=${encodeURIComponent(creatorId)}`)
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById("earned").textContent = `$${data.earned.toFixed(2)}`;
+          document.getElementById("paid").textContent = `$${data.paid.toFixed(2)}`;
+          document.getElementById("balance").textContent = `$${data.balance.toFixed(2)}`;
+          document.getElementById("surveys").textContent = data.surveys;
+        })
+        .catch(() => {
+          document.getElementById("creator-label").textContent =
+            "Unable to load creator stats.";
+        });
+    }
   </script>
 
 </body>
